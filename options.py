@@ -9,7 +9,7 @@
 
 import getopt, sys
 
-from datetime import *
+from datetime import datetime
 
 class options:
 
@@ -26,7 +26,7 @@ class options:
     numsleep = .5
 
     #default file name
-    outputfile = "gol_data_%s.hdf5" %(now())
+    outputfile = "gol_data_%s.hdf5" %(datetime.now())
 
 
 
