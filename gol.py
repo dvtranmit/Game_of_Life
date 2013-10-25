@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import options
 import gol_utils as utils
 import copy
+import time
 
 print "Welcome to Game of Life"
 
@@ -13,6 +14,7 @@ options.parseArguments()
 numx = options.numx
 numy = options.numy
 numsteps = options.numsteps
+numsleep = options.numsleep
 
 board = rand.rand(numx, numy) #creates a board of random numbers between 0 (inclusive) and 
                               #1 (noninclusive)
@@ -36,7 +38,7 @@ plt.draw()
 
 
 #counts alive neighbors
-for time in range(numsteps):
+for t in range(numsteps):
     old_board = copy.deepcopy(board) #makes a copy of the old board
     for i in range(numx):
         for j in range(numy):
@@ -49,9 +51,11 @@ for time in range(numsteps):
             elif old_board[i,j] == 0:
                 if num_alive == 3:
                     board[i,j] = 1
-    print time
+    
     plt.imshow(np.transpose(board), cmap = "hot")
     plt.draw()
+    time.sleep(numsleep)
+    del old_board
 
 
 
