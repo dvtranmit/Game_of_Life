@@ -28,8 +28,16 @@ for i in range(numx): #rounds numbers to 0 or 1
 
 old_board = copy.deepcopy(board) #makes a copy of the old board
 
+#creates blank plot for game of life
+plt.ion()
+img = plt.imshow(np.transpose(board), cmap="hot", animated = True)
+plt.title("Game of Life")
+plt.draw()
+
+
 #counts alive neighbors
 for time in range(numsteps):
+    old_board = copy.deepcopy(board) #makes a copy of the old board
     for i in range(numx):
         for j in range(numy):
             num_alive = utils.get_num_alive_neighbors(old_board, i, j)
@@ -41,9 +49,10 @@ for time in range(numsteps):
             elif old_board[i,j] == 0:
                 if num_alive == 3:
                     board[i,j] = 1
-        
+    print time
+    plt.imshow(np.transpose(board), cmap = "hot")
+    plt.draw()
 
-fig = plt.figure()
-plt.imshow(np.transpose(board), cmap="hot")
-plt.title("Game of Life")
-plt.show()
+
+
+
