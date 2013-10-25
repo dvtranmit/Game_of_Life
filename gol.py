@@ -12,9 +12,11 @@ options = options.options()
 options.parseArguments()
 numx = options.numx
 numy = options.numy
+numsteps = options.numsteps
 
 board = rand.rand(numx, numy) #creates a board of random numbers between 0 (inclusive) and 
                               #1 (noninclusive)
+
 
 #seeding the initial state for Game of Life
 for i in range(numx): #rounds numbers to 0 or 1
@@ -27,17 +29,18 @@ for i in range(numx): #rounds numbers to 0 or 1
 old_board = copy.deepcopy(board) #makes a copy of the old board
 
 #counts alive neighbors
-for i in range(numx):
-    for j in range(numy):
-        num_alive = utils.get_num_alive_neighbors(old_board, i, j)
-        if old_board[i,j] == 1:
-            if num_alive < 2:
-                board[i,j] = 0
-            elif num_alive > 3:
-                board[i,j] = 0
-        elif old_board[i,j] == 0:
-            if num_alive == 3:
-                board[i,j] = 1
+for time in range(numsteps):
+    for i in range(numx):
+        for j in range(numy):
+            num_alive = utils.get_num_alive_neighbors(old_board, i, j)
+            if old_board[i,j] == 1:
+                if num_alive < 2:
+                    board[i,j] = 0
+                elif num_alive > 3:
+                    board[i,j] = 0
+            elif old_board[i,j] == 0:
+                if num_alive == 3:
+                    board[i,j] = 1
         
 
 fig = plt.figure()

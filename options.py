@@ -20,7 +20,7 @@ class options:
     numy = 20
 
     #default number of timesteps
-    numsteps = 100
+    numsteps = 10
    
     #default time to sleep (in seconds)
     numsleep = .5
@@ -101,7 +101,7 @@ class options:
             elif opt in ('-y', '--numy'):
                 self.numy = int(arg)
 
-            elif opt in ('t', '--numsteps'):
+            elif opt in ('-t', '--numsteps'):
                 self.numsteps = int(arg)
 
             elif opt in ('-s', '--numsleep'):
