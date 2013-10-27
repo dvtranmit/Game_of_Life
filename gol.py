@@ -32,7 +32,7 @@ old_board = copy.deepcopy(board) #makes a copy of the old board
 
 #creates blank plot for game of life
 plt.ion()
-img = plt.imshow(np.transpose(board), cmap="hot", animated = True)
+img = plt.imshow(np.transpose(board), cmap="hot", animated = True, interpolation = "nearest")
 plt.title("Game of Life")
 plt.draw()
 
@@ -52,7 +52,7 @@ for t in range(numsteps):
                 if num_alive == 3:
                     board[i,j] = 1
     
-    plt.imshow(np.transpose(board), cmap = "hot")
+    plt.imshow(np.transpose(board), cmap = "hot", interpolation = "nearest")
     plt.draw()
     time.sleep(numsleep)
     del old_board
