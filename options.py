@@ -28,6 +28,9 @@ class options:
     #default file name
     outputfile = "gol_data_%s.hdf5" %(str(datetime.now()).replace(" ", "_"))
 
+    #default input file
+    inputfile = ""
+
 
 
 
@@ -37,13 +40,14 @@ class options:
 
         try:
             opts, args = getopt.getopt(sys.argv[1:], 
-                                       'hx:y:t:s:f:',
+                                       'hx:y:t:s:f:i:',
                                        ['help',
                                         'numx=',
                                         'numy=',
                                         'numsteps=',
                                         'numsleep=',
-                                        'outputfile='])
+                                        'outputfile='
+                                        'inputfile='])
 
         except getopt.GetoptError as err:
             print ('WARNING'+ str(err))
@@ -109,6 +113,9 @@ class options:
 
             elif opt in ('-f', '--outputfile'):
                 self.outputfile = str(arg) + ".hdf5"
+
+            elif opt in ('-i', '--inputfile'):
+                self.inputfile = str(arg)
 
            
             
