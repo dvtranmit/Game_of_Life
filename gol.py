@@ -10,8 +10,10 @@ import h5py
 print "Welcome to Game of Life"
 
 #importing numx and numy from options.py
-options = options.options()
+options = options.options() #instantiates "options" object from "options" module and assigns it to options
 options.parseArguments()
+
+#pulls attributes from options class
 numx = options.numx
 numy = options.numy
 numsteps = options.numsteps
@@ -21,8 +23,7 @@ inputfile = options.inputfile
 
 #checks if an input file has been given
 if inputfile == "":
-    board = rand.rand(numx, numy) #creates a board of random numbers between 0      (inclusive) and 
-                              #1 (noninclusive)
+    board = rand.rand(numx, numy) #creates a board of random numbers            between (inclusive) and #1 (noninclusive)
 
 
     #seeding the initial state for Game of Life
