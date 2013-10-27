@@ -26,7 +26,7 @@ class options:
     numsleep = .5
 
     #default file name
-    outputfile = "gol_data_%s.hdf5" %(datetime.now())
+    outputfile = "gol_data_%s.hdf5" %(str(datetime.now()).replace(" ", "_"))
 
 
 
