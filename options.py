@@ -108,7 +108,7 @@ class options:
                 self.numsleep = float(arg)
 
             elif opt in ('-f', '--outputfile'):
-                self.outputfile = str(arg)
+                self.outputfile = str(arg) + ".hdf5"
 
            
             
