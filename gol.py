@@ -9,11 +9,13 @@ import h5py
 
 print "Welcome to Game of Life"
 
-#importing numx and numy from options.py
-options = options.options() #instantiates "options" object from "options" module and assigns it to options
+#Instantiates "options" object from "options" module and assigns it to options
+options = options.options()
+
+#Gave the user multiple options to modify attributes for the simulation
 options.parseArguments()
 
-#pulls attributes from options class
+#The following attributes are imported from options class in options module
 numx = options.numx
 numy = options.numy
 numsteps = options.numsteps
@@ -21,28 +23,36 @@ numsleep = options.numsleep
 outputfile = options.outputfile
 inputfile = options.inputfile
 
-#checks if an input file has been given
-if inputfile == "":
-    board = rand.rand(numx, numy) #creates a board of random numbers            between (inclusive) and #1 (noninclusive)
 
 
-    #seeding the initial state for Game of Life
-    for i in range(numx): #rounds numbers to 0 or 1
+if inputfile == "": #Checks if an input file has been given
+
+    board = rand.rand(numx, numy) #Seeds a board with random numbers            
+                                  #between (inclusive) and #1 (noninclusive)
+
+
+    for i in range(numx):     #Rounds numbers to 0 or 1
         for j in range(numy):
             if board[i,j] >= 0.5:
                 board[i,j] = 1
             else:
                 board[i,j] = 0
 
-    old_board = copy.deepcopy(board) #makes a copy of the old board
+    old_board = copy.deepcopy(board) #Makes a copy of the old board
 
-    #creates blank plot for game of life
-    plt.ion()
-    img = plt.imshow(np.transpose(board), cmap="hot", animated = True, interpolation = "nearest")
-    plt.title("Game of Life")
-    plt.draw()
+    plt.ion() #Turns interactive mode on
 
-    f = h5py.File(outputfile)
+    img = plt.imshow(np.transpose(board),        #
+                     cmap="hot",                 #Creates black & white colorbar
+                     animated = True,            #Turns animated mode on
+                     interpolation = "nearest")  #Switches off automatic smoothing 
+                                                 #for more definition between cells 
+
+
+    plt.title("Game of Life")                    #Adds title to matplotlib figure
+    plt.draw()                                   #Shows the board
+
+    f = h5py.File(outputfile)                    
     f.attrs["Number of Timesteps"] = numsteps
     f.attrs["Sleep Time"] = numsleep
     f.attrs["Number of Rows"] = numy
