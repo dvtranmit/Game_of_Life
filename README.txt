@@ -9,9 +9,15 @@ GAME OF LIFE                VERSION 1                           NOVEMBER 2013
 AUTHORS & CONTACT INFORMATION
 =============================
 
-Stephanie Pavlick -- spavlick@mit.edu
-Jasmeet Arora     -- jasmeet@mit.edu
-Davis Tran        -- dvtran@mit.edu
+Undergraduate Contributors---------------------------------------------------
+
+        Stephanie Pavlick -- spavlick@mit.edu
+        Jasmeet Arora     -- jasmeet@mit.edu
+        Davis Tran        -- dvtran@mit.edu
+
+Graduate Mentor--------------------------------------------------------------
+
+        Will Boyd         -- wboyd@mit.edu
 
 ==============
 BRIEF OVERVIEW
@@ -92,4 +98,44 @@ Changing Sleep Time-------------------------------------------------------
 
 Storing and Naming HDF5 File Name------------------------------------------
 
-        
+        To create a new file or overwrite an old file with data from the simulation:
+
+        >$ python gol.py -f "--filename--"
+
+        Where the user should replace "--filename--" with the desired file name for 
+        the hdf5 (binary) file.
+
+Running the Simulation From an Existing File-------------------------------
+
+        To run the simulation from an existing file:
+
+        >$ python gol.py -i "--existingfile--"
+
+        Where the user should replace "--existingfile--" with the desired file name 
+        of the existing HDF5 Game of Life file.
+
+        Acceptable Input: Entering anything other than the name of an existing file 
+        (for example: naming a non-existent file, a non-HDF5 file, or a file 
+        unrelated to Game of Life) will break the program.
+
+Combining Commands----------------------------------------------------------
+
+        As with many other functions in Linux bash, these commands may be combined.
+
+Default Settings------------------------------------------------------------
+
+        x-dimension  = 20 cells
+        y-dimension  = 20 cells
+        timesteps    = 10 timesteps
+        sleep time   = 0.5 seconds
+        file name    = gol_data_MM/DD/YY_HH:MM:SS
+
+====================================================================================
+   _____   _____   _________   _____    ______   ____    _      _   ____   _____
+  | ____| | ___ | |  _   _  | | ____|  | ____ | | ___|  | |    | | | ___| | ____|
+  ||   _  | | | | | | | | | | ||____   | |  | | | |__   | |    | | | |__  | |___
+  ||  | | | |_| | | | | | | | | ____|  | |  | | | ___|  | |    | | | ___| | ____|
+  ||__| | | | | | | | | | | | | |___   | |__| | | |     | |___ | | | |    | |___
+  |_____| |_| |_| |_| |_| |_| |_____|  |______| |_|     |_____||_| |_|    |_____|
+
+====================================================================================
