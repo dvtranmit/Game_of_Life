@@ -60,7 +60,7 @@ if inputfile == "": #Checks if an input file has been given,
 
     sb = f.create_group("Timestep 0")            #sb means seed board
     sb.create_dataset ("Board", data = board)    #Creates dataset that takes data   
-                                                 #from the seed board
+                                                 #from the original board
 
 
     for t in range(numsteps):
@@ -89,8 +89,9 @@ if inputfile == "": #Checks if an input file has been given,
                    cmap = "hot",
                    interpolation = "nearest")
         plt.draw()
-        time.sleep(numsleep)
-        del old_board
+
+        time.sleep(numsleep)            #Sets the sleep time from numsleep variable
+        del old_board                   #Deletes old_board to prevent pile-up
         
         #Creates data group for each timestep
         nb = f.create_group("Timestep %d" %(t+1))
@@ -98,31 +99,37 @@ if inputfile == "": #Checks if an input file has been given,
         #Adds data from board at that timestep to its respective data group
         nb.create_dataset ("Board", data = board) 
 
-    f.close()    #Closes File "f"
+    f.close()    #Closes File
 
-#runs if input file is given
+#Runs the following if input file is given
 else:
-    #reads input file to define variables
+    #Reads input file to define variables
     f = h5py.File(inputfile)
     numsteps = f.attrs["Number of Timesteps"]
     numsleep = f.attrs["Sleep Time"]
 
-    #creates groups
+    #Creates groups
     groups = list(f)
 
-    #creates blank plot for game of life
+    #Creates blank plot for game of life
     plt.ion()
     board = f[groups[0]]['Board'][...]
-    img = plt.imshow(np.transpose(board), cmap="hot", animated = True, interpolation = "nearest")
+    img = plt.imshow(np.transpose(board), 
+                     cmap="hot", 
+                     animated = True, 
+                     interpolation = "nearest")
     plt.title("Game of Life")
     plt.draw()
 
-    #runs through groups to display time steps
+    #Loops over groups to display time steps
     for group in groups[1:]:
-        plt.imshow(np.transpose(f[group]['Board'][...]), cmap = "hot", interpolation = "nearest")
+        plt.imshow(np.transpose(f[group]['Board'][...]), 
+                   cmap = "hot", 
+                   interpolation = "nearest")
         plt.draw()
         time.sleep(numsleep)
-    #closes file
+
+    #Closes file
     f.close()
 
 

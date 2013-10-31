@@ -1,15 +1,17 @@
 ##
 # @file options.py
-# @package openmoc.options
-# @brief
+# @modeled after openmoc.options
 # 
-# @author William Boyd (wboyd@mit.edu)
-# @date July 24, 2013
+# @authors Jasmeet Arora (jasmeet@mit.edu) 
+#          Stephanie Pavlick (spavlick@mit.edu)
+#          Davis Tran (dvtran@mit.edu)
+
+# @date November 1, 2013
 
 
 import getopt, sys
 
-from datetime import datetime
+from datetime import datetime #imports date and time getter for default file naming
 
 class options:
 
@@ -36,66 +38,73 @@ class options:
 
 
 
-    def parseArguments(self):
+    def parseArguments(self):    #definiing the method parseArguments
 
         try:
             opts, args = getopt.getopt(sys.argv[1:], 
-                                       'hx:y:t:s:f:i:',
-                                       ['help',
-                                        'numx=',
+                                       'hx:y:t:s:f:i:', #each letter represents
+                                       ['help',         #optional user
+                                        'numx=',        #command line inputs
                                         'numy=',
                                         'numsteps=',
                                         'numsleep=',
                                         'outputfile='
                                         'inputfile='])
 
-        except getopt.GetoptError as err:
-            print ('WARNING'+ str(err))
-            pass
+        except getopt.GetoptError as err:   #if user enters invalid command,
+            print ('WARNING'+ str(err))     #error message is printed and 'pass'
+            pass                            #allows the program to run on defaults
 
-        # Parse the command line arguments - error checking will occur
-        # at the setter method level in C++
+        # Parse the command line arguments
         for opt, arg in opts:
 
             # Print a report of all supported runtime options and exit
             if opt in ('-h', '--help'):
 
                 print '{:-^80}'.format('')
-                print '{: ^80}'.format('OpenMOC v.0.1.1 runtime options')
+                print '{: ^80}'.format('Game of Life v.1.0.0 runtime options')
                 print '{:-^80}'.format('')
                 print
 
-                help = '\t{: <35}'.format('-h, --help')
-                help += 'Report OpenMOC runtime options\n'
-                print help
+                categories = '  {: <16}'.format('[command]')
+                categories += '\t{: <18}'.format('[default]')
+                categories += '[description]'
+                print categories
+                print
 
-                num_azim = '\t{: <35}'.format('-a, --num-azim=<4>')
-                num_azim += 'the number of azimuthal angles\n'
-                print num_azim
+                help = '  {: <40}'.format('-h, --help')
+                help += 'Report Game of Life runtime options\n'
+                print help              
+ 
+                numx = '  {: <14}'.format('-x, --numx')
+                numx += '\t{: <18}'.format('20')
+                numx += 'x-dimension of board\n'
+                print numx
 
-                track_spacing = '\t{: <35}'.format('-s, --track-spacing=<0.1>')
-                track_spacing += 'The track spacing [cm]\n'
-                print track_spacing
+                numy = '  {: <14}'.format('-y, --numx')
+                numy += '\t{: <18}'.format('20')
+                numy += 'y-dimension of board\n'
+                print numy
 
-                max_iters = '\t{: <35}'.format('-i, --max-iters=<1000>')
-                max_iters += 'The max number of source iterations\n'
-                print max_iters
+                numsteps = '  {: <10}'.format('-t, --numsteps')
+                numsteps += '\t{: <18}'.format('10')
+                numsteps += 'Number of timesteps\n'
+                print numsteps
 
-                tolerance = '\t{: <35}'.format('-c, --tolerance=<1E-5>')
-                tolerance += 'The source convergence tolerance\n'
-                print tolerance
+                numsleep = '  {: <10}'.format('-s, --numsleep')
+                numsleep += '\t{: <18}'.format('0.5')
+                numsleep += 'Sleep time of each timestep\n'
+                print numsleep
 
-                num_omp_threads = '\t{: <35}'.format('-t, --num-omp-threads=<1>')
-                num_omp_threads += 'The number of OpenMP threads\n'
-                print num_omp_threads
+                outputfile = '  {: <10}'.format('-f, --outputfile')
+                outputfile += '\t{: <18}'.format('gol_data_datetime')
+                outputfile += 'Names data file for simulation\n'
+                print outputfile
 
-                num_gpu_threadblocks = '\t{: <35}'.format('-b, --num-gpu-threadblocks=<64>')
-                num_gpu_threadblocks += 'The number of GPU threadblocks\n'
-                print num_gpu_threadblocks
-
-                num_gpu_threads = '\t{: <35}'.format('-g, --num-gpu-threads=<64>')
-                num_gpu_threads += 'The number of GPU threads per block\n'
-                print num_gpu_threads
+                inputfile = '  {: <12}'.format('-i, --inputfile')
+                inputfile += '\t{: <18}'.format('')
+                inputfile += 'Runs game with existing file\n'
+                print inputfile
 
                 sys.exit()
 
