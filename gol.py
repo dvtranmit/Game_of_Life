@@ -25,7 +25,7 @@ inputfile = options.inputfile
 
 
 
-if inputfile == "": #Checks if an input file has been given
+if inputfile == "": #Checks if an input file has been given,
 
     board = rand.rand(numx, numy) #Seeds a board with random numbers            
                                   #between (inclusive) and #1 (noninclusive)
@@ -52,41 +52,53 @@ if inputfile == "": #Checks if an input file has been given
     plt.title("Game of Life")                    #Adds title to matplotlib figure
     plt.draw()                                   #Shows the board
 
-    f = h5py.File(outputfile)                    
-    f.attrs["Number of Timesteps"] = numsteps
-    f.attrs["Sleep Time"] = numsleep
-    f.attrs["Number of Rows"] = numy
-    f.attrs["Number of Columns"] = numx
+    f = h5py.File(outputfile)                    #Opens HDF5 file
+    f.attrs["Number of Timesteps"] = numsteps    #Creates timestep attribute
+    f.attrs["Sleep Time"] = numsleep             #Creates sleep time attribute
+    f.attrs["Number of Rows"] = numy             #Creates row attribute
+    f.attrs["Number of Columns"] = numx          #Creates column attribute
 
-    sb = f.create_group("Timestep 0") #sb means seed board
-    sb.create_dataset ("Board", data = board)
+    sb = f.create_group("Timestep 0")            #sb means seed board
+    sb.create_dataset ("Board", data = board)    #Creates dataset that takes data   
+                                                 #from the seed board
 
 
-    #counts alive neighbors
-    for t in range(numsteps):   
-        old_board = copy.deepcopy(board) #makes a copy of the old board
+    for t in range(numsteps):
+   
+        old_board = copy.deepcopy(board) #Makes a copy of the old board
+
+    ###Loops over and determines the fate of each cell using Game of Life Rules###
         for i in range(numx):
             for j in range(numy):
+
+                #Counts the number of alive neighbors
                 num_alive = utils.get_num_alive_neighbors(old_board, i, j)
+        
+ 
                 if old_board[i,j] == 1:
-                    if num_alive < 2:
-                        board[i,j] = 0
-                    elif num_alive > 3:
+                    if num_alive < 2:   #Dies if it has less than 2 alive neighbors
+                        board[i,j] = 0      
+                    elif num_alive > 3: #Dies if it has more than 3 alive neighbors
                         board[i,j] = 0
                 elif old_board[i,j] == 0:
-                    if num_alive == 3:
+                    if num_alive == 3:  #Revived if it has exactly 3 alive neighbors
                         board[i,j] = 1
         
-        
-        plt.imshow(np.transpose(board), cmap = "hot", interpolation = "nearest")
+        #See above
+        plt.imshow(np.transpose(board), 
+                   cmap = "hot",
+                   interpolation = "nearest")
         plt.draw()
         time.sleep(numsleep)
         del old_board
-      
+        
+        #Creates data group for each timestep
         nb = f.create_group("Timestep %d" %(t+1))
+
+        #Adds data from board at that timestep to its respective data group
         nb.create_dataset ("Board", data = board) 
 
-    f.close()
+    f.close()    #Closes File "f"
 
 #runs if input file is given
 else:
