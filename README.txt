@@ -38,13 +38,19 @@ RULES
 DOWNLOAD & INSTALLATION
 =======================
 
+Make sure numpy and hdf5 python modules are installed on your Linux machine
+
+Run the following command to download and install these modules in Debian based Linux
+
+    >$ sudo get-apt install python-h5py python-numpy
+
 Create a directory for the repository
 
 Use the cd command to enter the new directory
 
 Run the following code in the Linux terminal:
     
-    git clone https://github.com/dvtranmit/Game_of_Life.git
+    >$ git clone https://github.com/dvtranmit/Game_of_Life.git
 
 =======================
 HOW TO RUN GAME OF LIFE
